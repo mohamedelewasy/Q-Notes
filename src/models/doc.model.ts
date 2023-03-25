@@ -1,6 +1,8 @@
+import path from 'path';
 import { DataTypes, Model } from 'sequelize';
 
 import { Doc } from '../../types/schema';
+import { __BASEdIRECTORY } from '../app';
 import sequelize from '../config/db';
 
 class DocModel extends Model implements Doc {
@@ -17,7 +19,14 @@ class DocModel extends Model implements Doc {
 DocModel.init(
   {
     id: { type: DataTypes.UUIDV4, primaryKey: true },
-    pdf: { type: DataTypes.STRING, unique: true, allowNull: false },
+    pdf: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      get() {
+        return path.join(__BASEdIRECTORY, `uploads/${this.getDataValue('pdf')}.pdf`);
+      },
+    },
     description: { type: DataTypes.STRING, allowNull: false },
     educationLevel: { type: DataTypes.STRING, allowNull: false },
     className: { type: DataTypes.STRING, allowNull: false },

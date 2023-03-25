@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
 
-import { validate } from '../middlewares/validator';
+import { validator } from '../middlewares/validator';
 
 export const createDocVal = [
   body('pdf').notEmpty().withMessage('pdf is required'),
@@ -14,7 +14,7 @@ export const createDocVal = [
     .withMessage('price is required')
     .isFloat()
     .withMessage('invalid price format'),
-  validate,
+  validator,
 ];
 
 export const updateDocVal = [
@@ -30,5 +30,5 @@ export const updateDocVal = [
     .withMessage('price is required')
     .isFloat()
     .withMessage('invalid price format'),
-  validate,
+  validator,
 ];

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import dotenv from 'dotenv';
 import express from 'express';
+import morgan from 'morgan';
 
 import sequelize from './config/db';
 import { errorHandler } from './middlewares/errorHandler';
@@ -12,11 +13,7 @@ const env = process.env.ENV;
 
 app.use(express.json());
 // logger
-if (env === 'development')
-  app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url} - ${res.statusCode}`);
-    next();
-  });
+if (env === 'development') app.use(morgan('short'));
 
 // test app health
 app.get('/healthz', (req, res) => {

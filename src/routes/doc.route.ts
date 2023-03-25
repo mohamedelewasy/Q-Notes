@@ -3,10 +3,11 @@ import { Router } from 'express';
 import * as D from '../handlers/doc';
 import { isAdmin } from '../middlewares/isAdmin';
 import { protect } from '../middlewares/protect';
+import { upload } from '../middlewares/uploadPdf';
 import { createDocVal, updateDocVal } from '../validators/doc.val';
 
 const router = Router();
-router.route('/').post(protect, isAdmin, createDocVal, D.createDoc).get(D.getDocList);
+router.route('/').post(protect, isAdmin, upload, createDocVal, D.createDoc).get(D.getDocList);
 router
   .route('/:id')
   .get(D.getDoc)

@@ -16,9 +16,19 @@ export const getDocList = asyncHandler(async (req, res) => {
   const keyWord = req.query.keyWord?.toString() || '';
   const documents = await DocModel.findAll({
     where: { title: { [Op.like]: `%${keyWord}%` } },
+    attributes: [
+      'id',
+      'description',
+      'educationLevel',
+      'className',
+      'semester',
+      'title',
+      'updatedAt',
+    ],
     limit,
     offset,
     order: [[orderBy, orderByRank]],
   });
-  res.status(200).json(documents);
+  const documentsCount = await DocModel.count({ where: { title: { [Op.like]: `%${keyWord}%` } } });
+  res.status(200).json({ articles: documents, count: documentsCount });
 });

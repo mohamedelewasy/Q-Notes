@@ -9,6 +9,7 @@
     "dev": "nodemon src/server.ts",
     "jasmine": "set ENV=test &&jasmine --config=jasmine.json",
     "test": "npm run build && set ENV=test&& npm run jasmine",
+    "seed": "ts-node src/seed.ts",
     "migrate": "db-migrate up",
     "demigrate": "db-migrate reset",
     "migrate-test": "db-migrate --env test up",
@@ -36,6 +37,7 @@
     "pg": "^8.9.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.29.0",
+    "sharp": "^0.32.0",
     "uuidv4": "^6.2.13",
     "validator": "^13.9.0"
   },

@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 /* This pen */
-body {
-  font-family: 'Baloo 2', cursive;
-  font-size: 16px;
-  color: #ffffff;
-  text-rendering: optimizeLegibility;
-  font-weight: initial;
-}
 
 .dark {
   background: #110f16;
@@ -16,6 +9,11 @@ body {
   background: hsla(210, 17%, 98%, 0.322);
 }
 
+.docs-count {
+  color: black;
+  margin-left: 10px;
+}
+
 a,
 a:hover {
   text-decoration: none;
@@ -23,7 +21,7 @@ a:hover {
 }
 
 #pageHeaderTitle {
-  margin: 2rem 0;
+  margin: 1rem 0;
   text-transform: uppercase;
   text-align: center;
   font-size: 2.5rem;

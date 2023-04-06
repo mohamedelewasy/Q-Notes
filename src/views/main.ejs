@@ -6,41 +6,85 @@
           <div class="col-md-8">
             <div class="search">
               <i class="fa fa-search"></i>
-              <input type="text" class="form-control" placeholder="Have a question? Ask Now" />
+              <input type="text" class="form-control" placeholder="Search in our documentations." />
               <button class="btn btn-primary">Search</button>
             </div>
           </div>
         </div>
       </div>
       <div class="h1 text-center text-dark" id="pageHeaderTitle">Our Documentaions</div>
-      <article class="postcard light blue">
-        <a class="postcard__img_link" href="#">
-          <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
-        </a>
-        <div class="postcard__text t-dark">
-          <h1 class="postcard__title blue"><a href="#">Podcast Title</a></h1>
-          <div class="postcard__subtitle small">
-            <time datetime="2020-05-25 12:00:00">
-              <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-            </time>
+      <div class="row docs-count"></div>
+      <div class="articles">
+        <!-- <article class="postcard light blue">
+          <a class="postcard__img_link" href="#">
+            <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+          </a>
+          <div class="postcard__text t-dark">
+            <h1 class="postcard__title blue"><a href="#">Podcast Title</a></h1>
+            <div class="postcard__subtitle small">
+              <time datetime="2020-05-25 12:00:00">
+                <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
+              </time>
+            </div>
+            <div class="postcard__bar"></div>
+            <div class="postcard__preview-txt">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores
+              inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus
+              nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero.
+              Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis
+              enim quidem excepturi, illum quos!
+            </div>
+            <ul class="postcard__tagbox">
+              <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+              <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+              <li class="tag__item play blue">
+                <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+              </li>
+            </ul>
           </div>
-          <div class="postcard__bar"></div>
-          <div class="postcard__preview-txt">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, fugiat asperiores
-            inventore beatae accusamus odit minima enim, commodi quia, doloribus eius! Ducimus nemo
-            accusantium maiores velit corrupti tempora reiciendis molestiae repellat vero. Eveniet
-            ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis enim
-            quidem excepturi, illum quos!
-          </div>
-          <ul class="postcard__tagbox">
-            <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-            <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-            <li class="tag__item play blue">
-              <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
-            </li>
-          </ul>
-        </div>
-      </article>
+        </article> -->
+      </div>
     </div>
   </section>
 </div>
+<script>
+  const articls = document.querySelector('.articles');
+  const docsCount = document.querySelector('.docs-count');
+  axios({
+    url: '<%= request.docList.url %>',
+    method: '<%= request.docList.method %>',
+  })
+    .then(res => {
+      docsCount.innerHTML = `${res.data.count} results`;
+      res.data.articles.forEach(article => {
+        const card = document.createElement('div');
+        card.innerHTML = `
+        <article class="postcard light blue">
+          <span class="d-none article-id">${article.id}</span>
+          <a class="postcard__img_link" href="#">
+            <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+          </a>
+          <div class="postcard__text t-dark">
+            <h1 class="postcard__title blue"><a href="#">${article.title}</a></h1>
+            <div class="postcard__subtitle small">
+              <time datetime="2020-05-25 12:00:00">
+                <i class="fas fa-calendar-alt mr-2"></i>${article.updatedAt}
+              </time>
+            </div>
+            <div class="postcard__bar"></div>
+            <div class="postcard__preview-txt">
+              ${article.description}
+            </div>
+            <ul class="postcard__tagbox">
+              <li class="tag__item"><i class="fas fa-tag mr-2"></i>${article.educationLevel} school</li>
+              <li class="tag__item"><i class="fas fa-tag mr-2"></i>level ${article.className}</li>
+              <li class="tag__item"><i class="fas fa-tag mr-2"></i>semester ${article.semester}</li>
+            </ul>
+          </div>
+        </article>
+        `;
+        articls.appendChild(card);
+      });
+    })
+    .catch(err => console.log(err));
+</script>

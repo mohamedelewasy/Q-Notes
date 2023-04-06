@@ -11,6 +11,7 @@ export interface User {
 export interface Doc {
   id: string;
   pdf: string;
+  thumbnail: string;
   description: string;
   educationLevel: string;
   class: string;

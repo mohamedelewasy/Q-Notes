@@ -3,7 +3,7 @@ import { Router } from 'express';
 import * as D from '../handlers/doc';
 import { isAdmin } from '../middlewares/isAdmin';
 import { protect } from '../middlewares/protect';
-import { upload } from '../middlewares/uploadPdf';
+import { upload } from '../middlewares/upload';
 import { createDocVal, updateDocVal } from '../validators/doc.val';
 
 const router = Router();

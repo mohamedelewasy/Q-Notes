@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import { Router } from 'express';
 
-import { userEndpoints } from '../types/endpoints';
+import { docEndpoints, userEndpoints } from '../types/endpoints';
 
 dotenv.config();
 
@@ -12,6 +12,7 @@ router.route('/').get((req, res) =>
     request: {
       profile: { url: url + userEndpoints.profile.url, method: userEndpoints.profile.method },
       signout: { url: url + userEndpoints.signout.url, method: userEndpoints.signout.method },
+      docList: { url: url + docEndpoints.getDocList.url, method: docEndpoints.getDocList.method },
     },
     redirectTo: url + '/p',
   })

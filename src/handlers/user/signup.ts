@@ -27,7 +27,7 @@ export const signup = asyncHandler(async (req, res, next) => {
     verificationCode,
   });
 
-  sendVerificationMail(plainVerificationCode, email);
+  // sendVerificationMail(plainVerificationCode, email);
   const token = generateToken(user.id);
   res.locals.userId = user.id;
   await user.update({ token });

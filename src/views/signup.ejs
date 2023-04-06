@@ -67,19 +67,19 @@
         const email = e.target.email.value;
         const password = e.target.password.value;
         axios({
-          url: '<%= request.url %>',
-          method: '<%= request.method%>',
+          url: '<%= request.signup.url %>',
+          method: '<%= request.signup.method%>',
           data: { email, password },
         })
           .then(response => {
             if (response.request.status == 200) {
               localStorage.setItem('token', 'Bearer ' + response.data.token);
+              successMessage.classList.remove('d-none');
+              errorMessage.classList.add('d-none');
+              setTimeout(() => {
+                window.location.href = '<%= redirectTo %>';
+              }, 1000);
             }
-            successMessage.classList.remove('d-none');
-            errorMessage.classList.add('d-none');
-            setTimeout(() => {
-              window.location.href = '<%= redirectTo %>';
-            }, 1000);
           })
           .catch(err => {
             console.log(err);

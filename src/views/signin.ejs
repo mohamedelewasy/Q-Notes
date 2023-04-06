@@ -11,16 +11,17 @@
         <div class="col-lg-4 col-md-6">
           <form>
             <h3 class="text-center my-4 text-capitalize">Log In to your account</h3>
+            <div class="alert alert-danger d-none error-message" role="alert">error</div>
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="form2Example1" class="form-control" />
-              <label class="form-label" for="form2Example1">Email address</label>
+              <input type="email" id="email" class="form-control" />
+              <label class="form-label" for="email">Email address</label>
             </div>
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" id="form2Example2" class="form-control" />
-              <label class="form-label" for="form2Example2">Password</label>
+              <input type="password" id="password" class="form-control" />
+              <label class="form-label" for="password">Password</label>
             </div>
 
             <!-- 2 column grid layout for inline styling -->
@@ -62,5 +63,33 @@
     </div>
 
     <%- include('./partials/footer.ejs') %>
+    <script>
+      const errorMessage = document.querySelector('.error-message');
+      const form = document.querySelector('form');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        axios({
+          url: '<%= request.signin.url %>',
+          method: '<%= request.signin.method%>',
+          data: { email, password },
+        })
+          .then(response => {
+            if (response.request.status == 200) {
+              localStorage.setItem('token', 'Bearer ' + response.data.token);
+              errorMessage.classList.add('d-none');
+              setTimeout(() => {
+                window.location.href = '<%= redirectTo %>';
+              }, 1000);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            errorMessage.classList.remove('d-none');
+            errorMessage.innerHTML = err.response.data.error.join('\n');
+          });
+      });
+    </script>
   </body>
 </html>

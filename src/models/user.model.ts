@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 
-import { User } from '../../types/schema';
 import sequelize from '../config/db';
+import { User } from '../types/schema';
 
 class UserModel extends Model implements User {
   id!: string;
@@ -10,6 +10,7 @@ class UserModel extends Model implements User {
   isActive!: boolean;
   isAdmin!: boolean;
   token!: string;
+  verificationCode!: string;
   createdAt!: Date;
 }
 
@@ -24,7 +25,9 @@ UserModel.init(
     },
     password: { type: DataTypes.STRING, allowNull: true },
     isAdmin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 'false' },
+    isActive: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 'false' },
     token: { type: DataTypes.STRING },
+    verificationCode: { type: DataTypes.STRING },
   },
   { createdAt: true, updatedAt: false, sequelize, tableName: 'users' }
 );

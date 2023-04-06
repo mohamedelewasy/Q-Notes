@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-import { JWT } from '../../types/schema';
+import { JWT } from '../types/schema';
 
 dotenv.config();
 export const generateToken = (userId: string) => {

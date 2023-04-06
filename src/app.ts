@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
 
 import sequelize from './config/db';
+// test app health
 import { errorHandler } from './middlewares/errorHandler';
 import apiRoutes from './routes/index';
 
@@ -11,11 +13,11 @@ dotenv.config();
 const app = express();
 const env = process.env.ENV;
 
+app.use(cors());
 app.use(express.json());
 // logger
 if (env === 'development') app.use(morgan('short'));
 
-// test app health
 app.get('/healthz', (req, res) => {
   res.status(200).send('ok');
 });

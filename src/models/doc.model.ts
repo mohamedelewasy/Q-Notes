@@ -1,7 +1,7 @@
 import path from 'path';
 import { DataTypes, Model } from 'sequelize';
 
-import { Doc } from '../../types/schema';
+import { Doc } from '../types/schema';
 import { __BASEdIRECTORY } from '../app';
 import sequelize from '../config/db';
 

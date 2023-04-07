@@ -25,14 +25,15 @@ app.use(express.json());
 if (env === 'development') app.use(morgan('short'));
 
 // static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/p', express.static(path.join(__dirname, 'public')));
+app.use('/a', express.static(path.join(__dirname, 'public')));
 
 app.get('/healthz', (req, res) => {
   res.status(200).send('ok');
 });
 
 // ui routes
-app.use('/p', uiRoutes);
+app.use(uiRoutes);
 
 // api routes
 app.use('/api/v1', apiRoutes);

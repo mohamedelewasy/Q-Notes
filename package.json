@@ -9,7 +9,7 @@
     "dev": "nodemon src/server.ts",
     "jasmine": "set ENV=test &&jasmine --config=jasmine.json",
     "test": "npm run build && set ENV=test&& npm run jasmine",
-    "seed": "ts-node src/seed.ts",
+    "seed": "ts-node seed/seed.ts",
     "migrate": "db-migrate up",
     "demigrate": "db-migrate reset",
     "migrate-test": "db-migrate --env test up",

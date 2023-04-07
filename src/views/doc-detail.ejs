@@ -1,0 +1,48 @@
+<div class="doc-detail"></div>
+<script>
+  const docContailner = document.querySelector('.doc-detail');
+  const URL = '<%= request.docDetail.url %>';
+  const id = window.location.href.split('/').reverse()[0];
+  axios({ url: URL.replace(':id', id), method: '<%= request.docDetail.method %>' })
+    .then(res => {
+      const doc = res.data;
+      docContailner.innerHTML = `
+      <div class="container py-4 my-4 mx-auto d-flex flex-column">
+        <div class="header">
+          <div class="row r1">
+            <div class="col-md-9 abc">
+              <h1>${doc.title}</h1>
+            </div>
+            <div class="col-md-3 text-right pqr">
+              <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i
+              ><i class="fa fa-star"></i><i class="fa fa-star"></i>
+            </div>
+            <!-- <p class="text-right para">Based on 250 Review</p> -->
+          </div>
+        </div>
+        <div class="container-body mt-4">
+          <div class="row r3">
+            <div class="col-md-5 p-0 klo">
+              <ul>
+                <li>${doc.educationLevel} school</li>
+                <li>for class number ${doc.className}</li>
+                <li>semester ${doc.semester}</li>
+                <p>${doc.description}</p>
+              </ul>
+              <div class="col-md-3 myt">
+                <button type="button" class="btn btn-outline-primary"><a href="#">BUY NOW FOR ${doc.price}</a></button>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <img
+                class="detail-img"
+                src="https://picsum.photos/1000/1000"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      `;
+    })
+    .catch(err => console.log(err));
+</script>

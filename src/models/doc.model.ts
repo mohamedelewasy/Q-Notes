@@ -1,9 +1,12 @@
+import dotenv from 'dotenv';
 import path from 'path';
 import { DataTypes, Model } from 'sequelize';
 
 import { __BASEdIRECTORY } from '../app';
 import sequelize from '../config/db';
 import { Doc } from '../types/schema';
+
+dotenv.config();
 
 class DocModel extends Model implements Doc {
   id!: string;
@@ -28,6 +31,11 @@ DocModel.init(
     thumbnail: {
       type: DataTypes.STRING,
       unique: true,
+      get() {
+        return this.getDataValue('thumbnail')
+          ? path.join(process.env.STORAGE || '', 'thumbnail', this.getDataValue('thumbnail'))
+          : null;
+      },
     },
     description: { type: DataTypes.STRING, allowNull: false },
     educationLevel: {

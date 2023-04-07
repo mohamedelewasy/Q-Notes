@@ -1,0 +1,85 @@
+<div class="container">
+  <section class="light">
+    <div class="container py-2">
+      <div class="container">
+        <div class="row height d-flex justify-content-center align-items-center">
+          <div class="col-md-8">
+            <div class="search">
+              <i class="fa fa-search"></i>
+              <input
+                type="text"
+                class="form-control doc-search"
+                placeholder="Search in our documentations."
+              />
+              <button class="btn btn-primary doc-search-btn">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="h1 text-center text-dark" id="pageHeaderTitle">Our Documentaions</div>
+      <div class="row docs-count"></div>
+      <div class="articles"></div>
+    </div>
+  </section>
+</div>
+<script>
+  const articls = document.querySelector('.articles');
+  const docsCount = document.querySelector('.docs-count');
+  const docSearch = document.querySelector('.doc-search');
+  const docSearchBtn = document.querySelector('.doc-search-btn');
+  const query = window.location.href.split('?')[1];
+  axios({
+    url: '<%= request.docList.url %>?' + query,
+    method: '<%= request.docList.method %>',
+  })
+    .then(res => {
+      createDocCard(res);
+    })
+    .catch(err => console.log(err));
+
+  // search request
+  docSearchBtn.addEventListener('click', () => {
+    axios({
+      url: '<%= request.docList.url %>?' + `keyWord=${docSearch.value}&` + query,
+      method: '<%= request.docList.method %>',
+    })
+      .then(res => {
+        createDocCard(res);
+      })
+      .catch(err => console.log(err));
+  });
+
+  function createDocCard(res) {
+    docsCount.innerHTML = `${res.data.count} results`;
+    articls.innerHTML = '';
+    res.data.articles.forEach(article => {
+      const card = document.createElement('div');
+      card.innerHTML = `
+      <article class="postcard light blue">
+        <span class="d-none article-id">${article.id}</span>
+        <a class="postcard__img_link" href="http://localhost:3000/p/${article.id}">
+          <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="pdf thumbinal" />
+        </a>
+        <div class="postcard__text t-dark">
+          <h1 class="postcard__title blue"><a href="http://localhost:3000/p/${article.id}">${article.title}</a></h1>
+          <div class="postcard__subtitle small">
+            <time datetime="2020-05-25 12:00:00">
+              <i class="fas fa-calendar-alt mr-2"></i>${article.updatedAt}
+            </time>
+          </div>
+          <div class="postcard__bar"></div>
+          <div class="postcard__preview-txt">
+            ${article.description}
+          </div>
+          <ul class="postcard__tagbox">
+            <li class="tag__item"><i class="fas fa-tag mr-2"></i>${article.educationLevel} school</li>
+            <li class="tag__item"><i class="fas fa-tag mr-2"></i>level ${article.className}</li>
+            <li class="tag__item"><i class="fas fa-tag mr-2"></i>semester ${article.semester}</li>
+          </ul>
+        </div>
+      </article>
+      `;
+      articls.appendChild(card);
+    });
+  }
+</script>

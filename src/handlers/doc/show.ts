@@ -5,19 +5,23 @@ import DocModel from '../../models/doc.model';
 
 // route:   GET /doc/
 // access:  public
-// TODO: validate query options
-// limit, page, orderBy, orderByRank
+// query options = limit, page, orderBy, orderByRank, keyword, educationLevel
 export const getDocList = asyncHandler(async (req, res) => {
-  const limit = +(req.query.limit || 20);
+  const limit = +(req.query.limit || 10);
   const page = +(req.query.page || 1);
   const offset = (page - 1) * limit;
   const orderBy = req.query.orderBy?.toString() || 'updatedAt';
   const orderByRank = req.query.orderByRank?.toString() || 'DESC';
   const keyWord = req.query.keyWord?.toString() || '';
+  const educationLevel = req.query.educationLevel?.toString() || '';
   const documents = await DocModel.findAll({
-    where: { title: { [Op.like]: `%${keyWord}%` } },
+    where: {
+      title: { [Op.like]: `%${keyWord}%` },
+      educationLevel: { [Op.like]: educationLevel ? `${educationLevel}` : '%%' },
+    },
     attributes: [
       'id',
+      'thumbnail',
       'description',
       'educationLevel',
       'className',
@@ -29,6 +33,11 @@ export const getDocList = asyncHandler(async (req, res) => {
     offset,
     order: [[orderBy, orderByRank]],
   });
-  const documentsCount = await DocModel.count({ where: { title: { [Op.like]: `%${keyWord}%` } } });
+  const documentsCount = await DocModel.count({
+    where: {
+      title: { [Op.like]: `%${keyWord}%` },
+      educationLevel: { [Op.like]: educationLevel ? `${educationLevel}` : '%%' },
+    },
+  });
   res.status(200).json({ articles: documents, count: documentsCount });
 });

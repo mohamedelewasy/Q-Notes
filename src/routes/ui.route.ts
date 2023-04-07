@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
-import { Router } from 'express';
+import express, { Router } from 'express';
+import path from 'path';
 
 import { docEndpoints, userEndpoints } from '../types/endpoints';
 
@@ -7,7 +8,7 @@ dotenv.config();
 
 const router = Router();
 const url = process.env.URL || '';
-router.route('/').get((req, res) =>
+router.route('/p/').get((req, res) =>
   res.render('index', {
     request: {
       profile: { url: url + userEndpoints.profile.url, method: userEndpoints.profile.method },
@@ -17,7 +18,17 @@ router.route('/').get((req, res) =>
     redirectTo: url + '/p',
   })
 );
-router.route('/signin').get((req, res) =>
+router.route('/p/:id').get((req, res) =>
+  res.render('detail', {
+    request: {
+      profile: { url: url + userEndpoints.profile.url, method: userEndpoints.profile.method },
+      signout: { url: url + userEndpoints.signout.url, method: userEndpoints.signout.method },
+      docDetail: { url: url + docEndpoints.getDoc.url, method: docEndpoints.getDoc.method },
+    },
+    redirectTo: url + '/p',
+  })
+);
+router.route('/a/signin').get((req, res) =>
   res.render('signin', {
     request: {
       signin: { url: url + userEndpoints.signin.url, method: userEndpoints.signin.method },
@@ -27,7 +38,7 @@ router.route('/signin').get((req, res) =>
     redirectTo: url + '/p',
   })
 );
-router.route('/signup').get((req, res) =>
+router.route('/a/signup').get((req, res) =>
   res.render('signup', {
     request: {
       signup: { url: url + userEndpoints.signup.url, method: userEndpoints.signup.method },

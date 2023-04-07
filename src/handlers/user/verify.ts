@@ -1,9 +1,11 @@
+import dotenv from 'dotenv';
 import asyncHandler from 'express-async-handler';
 
 import ApiError from '../../errors/ApiError';
 import UserModel from '../../models/user.model';
 import { comparePassword } from '../../utils/password.util';
 
+dotenv.config();
 // route:   POST /auth/verify/:code
 // access:  logged-user
 export const verifyEmail = asyncHandler(async (req, res, next) => {
@@ -14,5 +16,5 @@ export const verifyEmail = asyncHandler(async (req, res, next) => {
   user.isActive = true;
   user.verificationCode = '';
   await user.save();
-  res.sendStatus(200);
+  res.status(200).redirect(process.env.URL + '/p');
 });

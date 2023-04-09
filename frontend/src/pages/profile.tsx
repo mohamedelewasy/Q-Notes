@@ -1,6 +1,3 @@
-import { useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-
 export const Profile = () => {
   return (
     <>

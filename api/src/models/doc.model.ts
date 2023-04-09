@@ -1,10 +1,10 @@
+import { Doc } from '@english/shared';
 import dotenv from 'dotenv';
 import path from 'path';
 import { DataTypes, Model } from 'sequelize';
 
 import { __BASEdIRECTORY } from '../app';
 import sequelize from '../config/db';
-import { Doc } from '@english/shared';
 
 dotenv.config();
 
@@ -14,10 +14,11 @@ class DocModel extends Model implements Doc {
   thumbnail!: string;
   description!: string;
   educationLevel!: string;
-  class!: string;
+  className!: string;
   semester!: string;
   title!: string;
   price!: number;
+  updatedAt!: Date;
 }
 
 DocModel.init(

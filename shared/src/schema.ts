@@ -14,10 +14,11 @@ export interface Doc {
   thumbnail: string;
   description: string;
   educationLevel: string;
-  class: string;
+  className: string;
   semester: string;
   title: string;
   price: number;
+  updatedAt: Date;
 }
 
 export interface JWT {

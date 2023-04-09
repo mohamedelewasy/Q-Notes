@@ -35,7 +35,7 @@ export const NavBar = () => {
     <>
       <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <Link to={home} className="navbar-brand">
+          <Link to={home} className="navbar-brand" reloadDocument>
             Q-Notes
           </Link>
           <button
@@ -60,6 +60,7 @@ export const NavBar = () => {
                       educationLevel: "secondary",
                     })}`,
                   }}
+                  reloadDocument
                 >
                   Secondary School
                 </Link>
@@ -71,6 +72,7 @@ export const NavBar = () => {
                     pathname: home,
                     search: `${createSearchParams({ educationLevel: "prep" })}`,
                   }}
+                  reloadDocument
                 >
                   Prep School
                 </Link>
@@ -84,6 +86,7 @@ export const NavBar = () => {
                       educationLevel: "primary",
                     })}`,
                   }}
+                  reloadDocument
                 >
                   Primary School
                 </Link>
@@ -97,6 +100,7 @@ export const NavBar = () => {
                       educationLevel: "kindergarten",
                     })}`,
                   }}
+                  reloadDocument
                 >
                   Kindergarten School
                 </Link>

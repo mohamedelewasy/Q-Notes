@@ -1,3 +1,6 @@
 {
-  "name": "@english/shared"
+  "name": "@english/shared",
+  "scripts": {
+    "build": "npm i && tsc"
+  }
 }

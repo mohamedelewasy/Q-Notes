@@ -18,5 +18,5 @@ export const signin = asyncHandler(async (req, res, next) => {
     return next(new ApiError('incorrect email or password', 400));
   const token = generateToken(user.id);
   await user.update({ token });
-  res.status(200).json({ token });
+  res.status(200).json({ token, id: user.id });
 });

@@ -18,7 +18,9 @@ export const NavBar = () => {
           method: userEndpoints.profile.method,
           headers: { Authorization: `Bearer ${useAuth.user.token}` },
         })
-        .then((res) => setEmail(res.data.email))
+        .then((res) => {
+          setEmail(res.data.email);
+        })
         .catch((err) => console.log(err));
     else setEmail("");
   }, [useAuth]);

@@ -16,7 +16,9 @@ export const DocDetail = () => {
         url: API + docEndpoints.getDoc.url.replace(":id", docId || ""),
         method: docEndpoints.getDoc.method,
       })
-      .then((res) => setDoc(res.data))
+      .then((res) => {
+        setDoc(res.data);
+      })
       .catch((err) =>
         toast("can't reach this documentaion", {
           toastId: 3,

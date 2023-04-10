@@ -1,7 +1,7 @@
 interface Iprop {
   doc: {
     id: string;
-    image: string;
+    thumbnail: string;
     title: string;
     updatedAt: string;
     description: string;

@@ -1,4 +1,4 @@
-import { Link, createSearchParams, useSearchParams } from "react-router-dom";
+import { Link, createSearchParams } from "react-router-dom";
 import "../assets/css/pagination.css";
 import { home } from "../types/routes";
 interface Iprop {
@@ -8,6 +8,8 @@ interface Iprop {
 }
 export const Pagination = (props: Iprop) => {
   const lastPage = Math.ceil(props.results / props.limit);
+  const educationLevel =
+    new URLSearchParams(window.location.search).get("educationLevel") || "";
   return (
     <div id="app" className="container pagination ">
       <ul className="page">
@@ -17,6 +19,7 @@ export const Pagination = (props: Iprop) => {
               pathname: home,
               search: `${createSearchParams({
                 page: `${props.currentPage - 1}`,
+                educationLevel,
               })}`,
             }}
             className="no-link"
@@ -46,7 +49,7 @@ export const Pagination = (props: Iprop) => {
           <Link
             to={{
               pathname: home,
-              search: `${createSearchParams({ page: "1" })}`,
+              search: `${createSearchParams({ page: "1", educationLevel })}`,
             }}
             className="no-link"
             reloadDocument
@@ -61,6 +64,7 @@ export const Pagination = (props: Iprop) => {
               pathname: home,
               search: `${createSearchParams({
                 page: `${props.currentPage - 1}`,
+                educationLevel,
               })}`,
             }}
             className="no-link"
@@ -78,6 +82,7 @@ export const Pagination = (props: Iprop) => {
               pathname: home,
               search: `${createSearchParams({
                 page: `${props.currentPage + 1}`,
+                educationLevel,
               })}`,
             }}
             className="no-link"
@@ -96,6 +101,7 @@ export const Pagination = (props: Iprop) => {
               pathname: home,
               search: `${createSearchParams({
                 page: `${lastPage}`,
+                educationLevel,
               })}`,
             }}
             className="no-link"
@@ -111,6 +117,7 @@ export const Pagination = (props: Iprop) => {
               pathname: home,
               search: `${createSearchParams({
                 page: `${props.currentPage + 1}`,
+                educationLevel,
               })}`,
             }}
             className="no-link"

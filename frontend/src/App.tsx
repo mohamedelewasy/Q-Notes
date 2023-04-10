@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar } from "./components/navbar";
-import { home, profile, signin, signup } from "./types/routes";
+import { docDetail, home, profile, signin, signup } from "./types/routes";
 import { Home } from "./pages/home";
 import { Signin } from "./pages/signin";
 import { Signup } from "./pages/signup";
@@ -8,6 +8,7 @@ import { Profile } from "./pages/profile";
 import { AuthContextProvider } from "./context/userContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Protect } from "./components/Protect";
+import { DocDetail } from "./pages/docDetail";
 
 const client = new QueryClient();
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <NavBar />
           <Routes>
             <Route path={home} element={<Home />} />
+            <Route path={docDetail} element={<DocDetail />} />
             <Route path={signin} element={<Signin />} />
             <Route path={signup} element={<Signup />} />
             <Route

@@ -1,4 +1,3 @@
-import { useQuery } from "react-query";
 import { DocCard } from "../components/docCard";
 import { SearchBox } from "../components/searchBox";
 import { useEffect, useState } from "react";
@@ -6,10 +5,14 @@ import axios from "axios";
 import { API } from "../context/api";
 import { Doc, docEndpoints } from "@english/shared";
 import { toast } from "react-toastify";
+import { Pagination } from "../components/pagination";
 
 export const Home = () => {
   const [docs, setDocs] = useState<Doc[]>([]);
   const [count, setCount] = useState(undefined);
+  const currentPage = +(
+    new URLSearchParams(window.location.search).get("page") || 1
+  );
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     axios
@@ -59,6 +62,9 @@ export const Home = () => {
             }}
           />
         ))}
+      {(count || 0) > 0 && (
+        <Pagination currentPage={currentPage} limit={10} results={count || 0} />
+      )}
     </div>
   );
 };

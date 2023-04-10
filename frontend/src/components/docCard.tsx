@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../assets/css/doc-card.css";
-import { home } from "../types/routes";
+import { docDetail, home } from "../types/routes";
 
 interface Iprop {
   doc: {
@@ -18,7 +18,10 @@ interface Iprop {
 export const DocCard = (props: Iprop) => {
   return (
     <article className="postcard light blue">
-      <Link to={home} className="postcard__img_link">
+      <Link
+        to={docDetail.replace(":id", props.doc.id)}
+        className="postcard__img_link"
+      >
         <img
           className="postcard__img"
           src="https://picsum.photos/1000/1000"
@@ -27,7 +30,9 @@ export const DocCard = (props: Iprop) => {
       </Link>
       <div className="postcard__text t-dark">
         <h1 className="postcard__title blue">
-          <Link to={home}>{props.doc.title}</Link>
+          <Link to={docDetail.replace(":id", props.doc.id)}>
+            {props.doc.title}
+          </Link>
         </h1>
         <div className="postcard__subtitle small">
           <time>

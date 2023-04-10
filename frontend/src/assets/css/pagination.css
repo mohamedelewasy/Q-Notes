@@ -1,0 +1,109 @@
+.pagination {
+  font-size: 62.5%;
+  letter-spacing: 0.6px;
+  line-height: 1.4;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.container .pagination {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #2d4848;
+}
+
+.pagination ul {
+  list-style-type: none;
+}
+
+.pagination .items-list {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  justify-content: center;
+  align-content: center;
+}
+
+.pagination .item {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #2d4848;
+  cursor: pointer;
+}
+.pagination .item span {
+  background: #ffffff;
+  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+  border-radius: 0.6rem;
+  padding: 2rem;
+  font-size: 2rem;
+  transition: all 0.3s ease;
+}
+.pagination .item:hover span {
+  transform: scale(1.2);
+  color: #23adad;
+}
+.pagination .item p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #23adade1;
+}
+
+.pagination .page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5rem;
+  margin: 1rem;
+  margin-top: 0rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0 0.8rem 2rem rgba(90, 97, 129, 0.05);
+}
+.pagination .page__numbers,
+.pagination .page__btn,
+.pagination .page__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.pagination .page__dots {
+  width: 2.6rem;
+  height: 2.6rem;
+  color: #23adade1;
+  cursor: initial;
+}
+.pagination .page__numbers {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.4rem;
+}
+.pagination .page__numbers:hover {
+  color: #23adad;
+}
+.pagination .page__numbers.active {
+  color: #ffffff;
+  background: #23adad;
+  font-weight: 600;
+  border: 1px solid #23adad;
+}
+.pagination .page__btn {
+  color: #23adade1;
+  pointer-events: none;
+}
+.pagination .page__btn.active {
+  color: #2d4848;
+  pointer-events: initial;
+}
+.pagination .page__btn.active:hover {
+  color: #23adad;
+}

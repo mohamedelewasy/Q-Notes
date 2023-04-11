@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../assets/css/doc-card.css";
-import { docDetail, home } from "../types/routes";
+import { docDetail, docList } from "../types/routes";
 
 interface Iprop {
   doc: {

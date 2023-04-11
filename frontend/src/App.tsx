@@ -1,7 +1,17 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar } from "./components/navbar";
-import { docDetail, home, profile, signin, signup } from "./types/routes";
-import { Home } from "./pages/home";
+import {
+  docDetail,
+  docList,
+  kindergarten,
+  prep,
+  primary,
+  profile,
+  secondary,
+  signin,
+  signup,
+} from "./types/routes";
+import { DocList } from "./pages/docList";
 import { Signin } from "./pages/signin";
 import { Signup } from "./pages/signup";
 import { Profile } from "./pages/profile";
@@ -14,11 +24,11 @@ const client = new QueryClient();
 function App() {
   return (
     <div className="App">
-      <AuthContextProvider>
-        <QueryClientProvider client={client}>
+      <QueryClientProvider client={client}>
+        <AuthContextProvider>
           <NavBar />
           <Routes>
-            <Route path={home} element={<Home />} />
+            <Route path={docList} element={<DocList />} />
             <Route path={docDetail} element={<DocDetail />} />
             <Route path={signin} element={<Signin />} />
             <Route path={signup} element={<Signup />} />
@@ -31,8 +41,8 @@ function App() {
               }
             />
           </Routes>
-        </QueryClientProvider>
-      </AuthContextProvider>
+        </AuthContextProvider>
+      </QueryClientProvider>
     </div>
   );
 }

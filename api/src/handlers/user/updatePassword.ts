@@ -11,6 +11,7 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
   const { oldPassword, newPassword } = req.body;
   if (!oldPassword || !newPassword)
     return next(new ApiError('new and old passwords are required', 400));
+  if (newPassword.length < 6) return next(new ApiError('password must be 6 or greater', 400));
   const user = await UserModel.findOne({
     attributes: ['id', 'email', 'password'],
     where: { id: res.locals.userId },

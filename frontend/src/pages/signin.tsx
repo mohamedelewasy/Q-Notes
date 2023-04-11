@@ -1,43 +1,42 @@
 import { Link, useNavigate } from "react-router-dom";
-import { home, signup } from "../types/routes";
-import { useState, MouseEvent, useContext } from "react";
-import axios, { AxiosError } from "axios";
-import { userEndpoints } from "@english/shared";
-import { API } from "../context/api";
+import { docList, signup } from "../types/routes";
+import { useState, useContext, useEffect, MouseEvent } from "react";
 import { AuthContext } from "../context/userContext";
+import { signinRequest } from "../axios/user";
+
 export const Signin = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [errors, setErrors] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const useAuth = useContext(AuthContext);
-  const handleLogin = async (e: MouseEvent<HTMLElement>) => {
+
+  useEffect(() => {
+    if (useAuth.user.token) navigate(docList);
+  }, [navigate]);
+
+  const handleSignin = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios
-      .request({
-        url: API + userEndpoints.signin.url,
-        method: userEndpoints.signin.method,
-        data: { email, password: pwd },
-      })
-      .then((res) => {
-        useAuth.signin(res.data.token);
-        navigate(home);
-      })
-      .catch((err: AxiosError<{ error: [string] }>) => {
-        setErrors(err.response?.data.error.join("\n") || "");
-      });
+    try {
+      const res = await signinRequest(email, pwd);
+      useAuth.signin(res.token);
+      navigate(docList);
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-4 col-md-6">
-          <form>
+          <form onSubmit={handleSignin}>
             <h3 className="text-center my-4 text-capitalize">
               Log In to your account
             </h3>
-            {errors && (
+            {error && (
               <div className="alert alert-danger error-message" role="alert">
-                {errors}
+                {error}
               </div>
             )}
             <div className="form-outline mb-4">
@@ -73,11 +72,7 @@ export const Signin = () => {
             </div>
 
             <div className="col d-flex justify-content-center">
-              <button
-                type="submit"
-                className="btn btn-primary btn-block mb-4"
-                onClick={handleLogin}
-              >
+              <button type="submit" className="btn btn-primary btn-block mb-4">
                 Sign In
               </button>
             </div>

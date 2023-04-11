@@ -1,43 +1,36 @@
 import { Link, useNavigate } from "react-router-dom";
-import { home, signin } from "../types/routes";
+import { docList, signin } from "../types/routes";
 import { useState, MouseEvent, useContext } from "react";
-import axios, { AxiosError } from "axios";
-import { API } from "../context/api";
-import { userEndpoints } from "@english/shared";
 import { AuthContext } from "../context/userContext";
+import { signupRequest } from "../axios/user";
 
 export const Signup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [errors, setErrors] = useState("");
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const useAuth = useContext(AuthContext);
-  const handleSignup = async (e: MouseEvent<HTMLElement>) => {
+
+  const handleSignup = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
-    axios
-      .request({
-        url: API + userEndpoints.signup.url,
-        method: userEndpoints.signup.method,
-        data: { email, password: pwd },
-      })
-      .then((res) => {
-        setSuccess(true);
-        setErrors("");
-        useAuth.signin(res.data.token);
-        setTimeout(() => {
-          navigate(home);
-        }, 2000);
-      })
-      .catch((err: AxiosError<{ error: [string] }>) => {
-        setErrors(err.response?.data.error[0] || "");
-      });
+    try {
+      const res = await signupRequest(email, pwd);
+      setSuccess(true);
+      setError("");
+      useAuth.signin(res.token);
+      setTimeout(() => {
+        navigate(docList);
+      }, 2000);
+    } catch (error) {
+      setError((error as Error).message);
+    }
   };
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-lg-4 col-md-6">
-          <form>
+          <form onSubmit={handleSignup}>
             <h3 className="text-center my-4 text-capitalize">
               create a new acctount
             </h3>
@@ -46,10 +39,9 @@ export const Signup = () => {
                 verification code sent to your email
               </div>
             )}
-            {errors && (
+            {error && (
               <div className="alert alert-danger error-message" role="alert">
-                {" "}
-                {errors}
+                {error}
               </div>
             )}
             <div className="form-outline mb-4">
@@ -82,7 +74,6 @@ export const Signup = () => {
               <button
                 type="submit"
                 className="btn btn-primary btn-block mb-4 submit"
-                onClick={handleSignup}
               >
                 Sign Up
               </button>

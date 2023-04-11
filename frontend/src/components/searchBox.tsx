@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/search-box.css";
-import { Link, createSearchParams } from "react-router-dom";
-import { home } from "../types/routes";
+import { Link, createSearchParams, useLocation } from "react-router-dom";
+import { docList } from "../types/routes";
 export const SearchBox = () => {
-  const [keyWord, setKeyWord] = useState(
-    new URLSearchParams(window.location.search).get("keyWord")
-  );
+  const location = useLocation();
+  const params = new URLSearchParams(window.location.search);
+  const [keyWord, setKeyWord] = useState("");
+
+  useEffect(() => {
+    setKeyWord(new URLSearchParams(location.search).get("keyWord") || "");
+  }, [location.search]);
   return (
     <div className="container">
       <div className="row height d-flex justify-content-center align-items-center">
@@ -21,10 +25,13 @@ export const SearchBox = () => {
             />
             <Link
               to={{
-                pathname: home,
-                search: `${keyWord && createSearchParams({ keyWord })}`,
+                pathname: docList,
+                search: `${createSearchParams({
+                  keyWord: keyWord || "",
+                  educationLevel: params.get("educationLevel") || "",
+                  page: params.get("page") || "1",
+                })}`,
               }}
-              reloadDocument
             >
               <button className="btn btn-primary doc-search-btn">Search</button>
             </Link>

@@ -1,68 +1,48 @@
 import axios, { AxiosError } from "axios";
-import { useRef, useState, useContext, MouseEvent } from "react";
+import { useRef, useState, useContext, MouseEvent, useEffect } from "react";
 import { API } from "../context/api";
 import { userEndpoints } from "@english/shared";
 import { AuthContext } from "../context/userContext";
-import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { signin } from "../types/routes";
+import {
+  profileRequest,
+  updateEmailRequest,
+  updatePasswordRequest,
+} from "../axios/user";
+import { toast } from "react-toastify";
 
 export const Profile = () => {
   const [pwd, setPwd] = useState("");
   const [newPwd, setNewPwd] = useState("");
   const [email, setEmail] = useState("");
-  const [errors, setErrors] = useState("");
-  const [success, setSuccess] = useState("");
+  const [currEmail, setCurrEmail] = useState("");
   const navigate = useNavigate();
   const useAuth = useContext(AuthContext);
-  const { data, status } = useQuery("profile", async () => {
-    return (
-      await axios.request({
-        url: API + userEndpoints.profile.url,
-        method: userEndpoints.profile.method,
-        headers: { Authorization: `Bearer ${useAuth.user.token}` },
-      })
-    ).data;
-  });
-  const handleUpdateEmail = (e: MouseEvent<HTMLElement>) => {
+  useEffect(() => {
+    profileRequest(useAuth.user.token || "").then((res) =>
+      setCurrEmail(res.email)
+    );
+  }, []);
+  const handleUpdateEmail = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    axios
-      .request({
-        url: API + userEndpoints.updateEmail.url,
-        method: userEndpoints.updateEmail.method,
-        headers: { Authorization: `Bearer ${useAuth.user.token}` },
-        data: { email, password: pwd },
-      })
-      .then((res) => {
-        setErrors("");
-        setSuccess("email updated successfully");
-        useAuth.signout();
-        navigate(signin);
-      })
-      .catch((err: AxiosError<{ error: [string] }>) => {
-        setErrors(err.response?.data.error.join("\n") || "");
-        console.log(err);
-      });
+    try {
+      await updateEmailRequest(email, pwd, useAuth.user.token || "");
+      useAuth.signout();
+      navigate(signin);
+    } catch (error) {
+      toast((error as Error).message, { toastId: 54, type: "error" });
+    }
   };
-  const handleUpdatePassword = (e: MouseEvent<HTMLElement>) => {
+  const handleUpdatePassword = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    axios
-      .request({
-        url: API + userEndpoints.updatePassword.url,
-        method: userEndpoints.updatePassword.method,
-        headers: { Authorization: `Bearer ${useAuth.user.token}` },
-        data: { oldPassword: pwd, newPassword: newPwd },
-      })
-      .then((res) => {
-        setErrors("");
-        setSuccess("password updated successfully");
-        useAuth.signout();
-        navigate(signin);
-      })
-      .catch((err: AxiosError<{ error: [string] }>) => {
-        setErrors(err.response?.data.error.join("\n") || "");
-        console.log(err);
-      });
+    try {
+      await updatePasswordRequest(pwd, newPwd, useAuth.user.token || "");
+      useAuth.signout();
+      navigate(signin);
+    } catch (error) {
+      toast((error as Error).message, { toastId: 49, type: "error" });
+    }
   };
   const updateEmail = useRef<HTMLDivElement>(null);
   const updatePassword = useRef<HTMLDivElement>(null);
@@ -95,28 +75,9 @@ export const Profile = () => {
                       </h6>
                       <div className="row">
                         <p className="m-b-10 f-w-600">Email</p>
-                        {status === "success" && (
-                          <h6 className="text-muted f-w-400">{data.email}</h6>
-                        )}
+
+                        <h6 className="text-muted f-w-400">{currEmail}</h6>
                       </div>
-                      {success && (
-                        <div
-                          className="alert alert-success success-message"
-                          style={{ maxWidth: "300px" }}
-                          role="alert"
-                        >
-                          verification code sent to your email
-                        </div>
-                      )}
-                      {errors && (
-                        <div
-                          className="row alert alert-danger error-message"
-                          style={{ maxWidth: "300px" }}
-                          role="alert"
-                        >
-                          {errors}
-                        </div>
-                      )}
                       {/* update email */}
                       <div
                         className="row d-none"

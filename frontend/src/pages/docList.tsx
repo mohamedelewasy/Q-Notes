@@ -1,42 +1,38 @@
 import { DocCard } from "../components/docCard";
 import { SearchBox } from "../components/searchBox";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { API } from "../context/api";
-import { Doc, docEndpoints } from "@english/shared";
+import { Doc } from "@english/shared";
 import { toast } from "react-toastify";
 import { Pagination } from "../components/pagination";
+import { FloatBtn } from "../components/floatBtn";
+import { docListRequest } from "../axios/doc";
+import { useLocation } from "react-router-dom";
 
-export const Home = () => {
+export const DocList = () => {
   const [docs, setDocs] = useState<Doc[]>([]);
-  const [count, setCount] = useState(undefined);
-  const currentPage = +(
-    new URLSearchParams(window.location.search).get("page") || 1
-  );
+  const [count, setCount] = useState(0);
+  const location = useLocation();
+
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    axios
-      .request({
-        url: API + docEndpoints.getDocList.url,
-        method: docEndpoints.getDocList.method,
-        params: {
-          educationLevel: params.get("educationLevel"),
-          page: params.get("page"),
-          keyWord: params.get("keyWord"),
-        },
-      })
+    const params = new URLSearchParams(location.search);
+    docListRequest(
+      params.get("educationLevel") || "",
+      +(params.get("page") || 1),
+      params.get("keyWord") || ""
+    )
       .then((res) => {
-        setDocs(res.data.articles);
-        setCount(res.data.count);
+        setDocs(res.articles);
+        setCount(res.count);
       })
       .catch((err) =>
-        toast("unstable internet connection or server error", {
+        toast((err as Error).message, {
           toastId: 2,
           autoClose: false,
           type: "error",
         })
       );
-  }, []);
+  }, [location.search]);
+
   return (
     <div className="container">
       <SearchBox />
@@ -44,8 +40,7 @@ export const Home = () => {
         Our Documentaions
       </div>
       <div className="row docs-count">{count} results</div>
-      {count === undefined && <h1>loading</h1>}
-      {count === 0 && <h1>No Documentaions found</h1>}
+      {count === 0 && <h1>Loading ...</h1>}
       {(count || 0) > 0 &&
         docs.map((el) => (
           <DocCard
@@ -63,8 +58,13 @@ export const Home = () => {
           />
         ))}
       {(count || 0) > 0 && (
-        <Pagination currentPage={currentPage} limit={10} results={count || 0} />
+        <Pagination
+          currentPage={+(new URLSearchParams(location.search).get("page") || 1)}
+          limit={10}
+          results={count || 0}
+        />
       )}
+      <FloatBtn />
     </div>
   );
 };

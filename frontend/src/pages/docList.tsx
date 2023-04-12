@@ -1,4 +1,4 @@
-import { DocCard } from "../components/docCard";
+import { DocCard } from "../components/doc/docCard";
 import { SearchBox } from "../components/searchBox";
 import { useEffect, useState } from "react";
 import { Doc } from "@english/shared";
@@ -66,7 +66,7 @@ export const DocList = () => {
         />
       )}
       <IsAdmin>
-        <FloatBtn />
+        <FloatBtn create={true} update={false} />
       </IsAdmin>
     </div>
   );

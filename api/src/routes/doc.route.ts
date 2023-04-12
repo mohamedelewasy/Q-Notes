@@ -11,6 +11,6 @@ router.route('/').post(protect, isAdmin, upload, createDocVal, D.createDoc).get(
 router
   .route('/:id')
   .get(D.getDoc)
-  .patch(protect, isAdmin, updateDocVal, D.updateDoc)
+  .patch(protect, isAdmin, upload, updateDocVal, D.updateDoc)
   .delete(protect, isAdmin, D.deleteDoc);
 export default router;

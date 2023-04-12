@@ -8,8 +8,7 @@ import DocModel from '../../models/doc.model';
 export const updateDoc = asyncHandler(async (req, res, next) => {
   const document = await DocModel.update(req.body, {
     where: { id: req.params.id },
-    returning: true,
   });
   if (!document) return next(new ApiError('document not found', 404));
-  res.status(200).json(document);
+  res.sendStatus(200);
 });

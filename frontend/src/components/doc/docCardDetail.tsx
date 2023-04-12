@@ -3,7 +3,7 @@ interface Iprop {
     id: string;
     thumbnail: string;
     title: string;
-    updatedAt: string;
+    updatedAt: Date;
     description: string;
     educationLevel: string;
     className: string;

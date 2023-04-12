@@ -17,10 +17,10 @@ export const upload = multer({
         const fileId = uuid() + '.pdf';
         req.body.pdf = fileId;
         callback(null, fileId);
-      } else if (file.fieldname === 'thumbnail') {
+      }
+      if (file.fieldname === 'thumbnail') {
         const fileExtention = file.originalname.split('.');
         const fileId = uuid() + '.' + fileExtention[fileExtention.length - 1];
-
         req.body.thumbnail = fileId;
         callback(null, fileId);
       }
@@ -33,9 +33,10 @@ export const upload = multer({
     if (file.fieldname === 'pdf') {
       if (file.mimetype.endsWith('pdf')) callback(null, true);
       else callback(new ApiError('invalid pdf', 400));
-    } else if (file.fieldname === 'thumbnail') {
+    }
+    if (file.fieldname === 'thumbnail') {
       if (file.mimetype.startsWith('image')) callback(null, true);
-      else callback(new ApiError('only images allowed', 400));
+      else callback(new ApiError('invalid thumbnail', 400));
     }
   },
 }).fields([

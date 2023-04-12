@@ -6,4 +6,4 @@ export const prep = "/prep";
 export const primary = "/primary";
 export const kindergarten = "/kindergarten";
 export const profile = "/profile";
-export const docDetail = "/:id";
+export const docDetail = "/docs/:id";

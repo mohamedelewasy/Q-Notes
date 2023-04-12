@@ -1,7 +1,8 @@
 node_modules
 .env
 dist
-src/uploads/*
+api/src/uploads/thumbnail/*
+api/src/uploads/pdf/*
 # dependencies
 /node_modules
 /.pnp

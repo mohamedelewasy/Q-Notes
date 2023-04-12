@@ -106,3 +106,20 @@ export const updatePasswordRequest = (
       throw new Error(errors.error.join("\n"));
     });
 };
+
+export const verifyRequest = (
+  verificationCode: string,
+  token: string
+): Promise<Boolean> => {
+  return axios
+    .request({
+      url: API + userEndpoints.verify.url.replace(":code", verificationCode),
+      method: userEndpoints.verify.method,
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => true)
+    .catch((err: AxiosError) => {
+      const errors = err.response?.data as { error: [string] };
+      throw new Error(errors.error.join("\n"));
+    });
+};

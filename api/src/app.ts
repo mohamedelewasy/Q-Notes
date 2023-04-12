@@ -13,7 +13,7 @@ dotenv.config();
 const app = express();
 const env = process.env.ENV;
 
-app.use(cors());
+app.use(cors({ origin: process.env.DOMAIN_URL, credentials: true }));
 app.use(express.json());
 // logger
 if (env === 'development') app.use(morgan('short'));

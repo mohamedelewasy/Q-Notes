@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { docList, signin } from "../types/routes";
-import { useState, MouseEvent, useContext } from "react";
+import { useState, MouseEvent, useContext, useEffect } from "react";
 import { AuthContext } from "../context/userContext";
 import { signupRequest } from "../axios/user";
 import { toast } from "react-toastify";
@@ -28,10 +28,12 @@ export const Signup = () => {
     }
   };
 
-  if (useAuth.user.token) {
-    toast("already logged in", { toastId: 545, type: "info" });
-    navigate(docList);
-  }
+  useEffect(() => {
+    if (useAuth.user.token) {
+      toast("already logged in", { toastId: 545, type: "info" });
+      navigate(docList);
+    }
+  }, []);
   return (
     <div className="container">
       <div className="row justify-content-center">

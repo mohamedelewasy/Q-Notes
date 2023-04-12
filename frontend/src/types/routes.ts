@@ -7,3 +7,4 @@ export const primary = "/primary";
 export const kindergarten = "/kindergarten";
 export const profile = "/profile";
 export const docDetail = "/docs/:id";
+export const verify = "/verify/:code";

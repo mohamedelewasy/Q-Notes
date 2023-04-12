@@ -53,7 +53,9 @@ export const signoutRequest = (token: string): Promise<boolean> => {
     });
 };
 
-export const profileRequest = (token: string): Promise<{ email: string }> => {
+export const profileRequest = (
+  token: string
+): Promise<{ email: string; isAdmin: boolean }> => {
   return axios
     .request({
       url: API + userEndpoints.profile.url,

@@ -1,16 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { NavBar } from "./components/navbar";
-import {
-  docDetail,
-  docList,
-  kindergarten,
-  prep,
-  primary,
-  profile,
-  secondary,
-  signin,
-  signup,
-} from "./types/routes";
+import { docDetail, docList, profile, signin, signup } from "./types/routes";
 import { DocList } from "./pages/docList";
 import { Signin } from "./pages/signin";
 import { Signup } from "./pages/signup";

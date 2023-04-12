@@ -20,5 +20,5 @@ export const createDoc = asyncHandler(async (req, res) => {
     title,
     price,
   });
-  res.status(200).json(document);
+  res.status(200).json({ id: document.id });
 });

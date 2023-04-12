@@ -3,6 +3,7 @@ import { docList, signin } from "../types/routes";
 import { useState, MouseEvent, useContext } from "react";
 import { AuthContext } from "../context/userContext";
 import { signupRequest } from "../axios/user";
+import { toast } from "react-toastify";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ export const Signup = () => {
       setError((error as Error).message);
     }
   };
+
+  if (useAuth.user.token) {
+    toast("already logged in", { toastId: 545, type: "info" });
+    navigate(docList);
+  }
   return (
     <div className="container">
       <div className="row justify-content-center">

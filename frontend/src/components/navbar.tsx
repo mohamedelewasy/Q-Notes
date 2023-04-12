@@ -25,7 +25,7 @@ export const NavBar = () => {
 
   const handleSignout = async (e: MouseEvent<HTMLButtonElement>) => {
     try {
-      await signoutRequest(useAuth.user.token || "");
+      // await signoutRequest(useAuth.user.token || "");
       useAuth.signout();
       navigate(signin);
     } catch (error) {

@@ -3,6 +3,7 @@ import { docList, signup } from "../types/routes";
 import { useState, useContext, useEffect, MouseEvent } from "react";
 import { AuthContext } from "../context/userContext";
 import { signinRequest } from "../axios/user";
+import { toast } from "react-toastify";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export const Signin = () => {
 
   useEffect(() => {
     if (useAuth.user.token) navigate(docList);
-  }, [navigate]);
+  }, []);
 
   const handleSignin = async (e: MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +26,11 @@ export const Signin = () => {
       setError((error as Error).message);
     }
   };
+
+  if (useAuth.user.token) {
+    toast("already logged in", { toastId: 545, type: "info" });
+    navigate(docList);
+  }
 
   return (
     <div className="container">

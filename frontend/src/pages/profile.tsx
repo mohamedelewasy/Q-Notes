@@ -1,7 +1,4 @@
-import axios, { AxiosError } from "axios";
 import { useRef, useState, useContext, MouseEvent, useEffect } from "react";
-import { API } from "../context/api";
-import { userEndpoints } from "@english/shared";
 import { AuthContext } from "../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { signin } from "../types/routes";

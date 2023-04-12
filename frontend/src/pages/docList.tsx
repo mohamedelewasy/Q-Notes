@@ -7,6 +7,7 @@ import { Pagination } from "../components/pagination";
 import { FloatBtn } from "../components/floatBtn";
 import { docListRequest } from "../axios/doc";
 import { useLocation } from "react-router-dom";
+import { IsAdmin } from "../components/isAdmin";
 
 export const DocList = () => {
   const [docs, setDocs] = useState<Doc[]>([]);
@@ -64,7 +65,9 @@ export const DocList = () => {
           results={count || 0}
         />
       )}
-      <FloatBtn />
+      <IsAdmin>
+        <FloatBtn />
+      </IsAdmin>
     </div>
   );
 };

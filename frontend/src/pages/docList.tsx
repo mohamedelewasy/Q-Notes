@@ -51,7 +51,7 @@ export const DocList = () => {
               className: el.className,
               description: el.description,
               educationLevel: el.educationLevel,
-              image: el.thumbnail,
+              thumbnail: el.thumbnail,
               semester: el.semester,
               title: el.title,
               updatedAt: el.updatedAt.toString(),

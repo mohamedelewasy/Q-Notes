@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import "../../assets/css/doc-card.css";
-import { docDetail, docList } from "../../types/routes";
+import { docDetail, imgURL } from "../../types/routes";
 
 interface Iprop {
   doc: {
     id: string;
-    image: string;
+    thumbnail: string;
     title: string;
     updatedAt: string;
     description: string;
@@ -24,7 +24,7 @@ export const DocCard = (props: Iprop) => {
       >
         <img
           className="postcard__img"
-          src="https://picsum.photos/1000/1000"
+          src={imgURL.replace(":imageId", props.doc.thumbnail)}
           alt="pdf thumbinal"
         />
       </Link>

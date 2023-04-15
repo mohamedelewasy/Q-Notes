@@ -28,7 +28,6 @@ export const AuthContextProvider = ({ children }: authContextProviderProps) => {
   const signout = () => {
     setUser({ token: null });
     localStorage.removeItem("token");
-    localStorage.removeItem("id");
   };
   return (
     <AuthContext.Provider value={{ user, signin, signout }}>

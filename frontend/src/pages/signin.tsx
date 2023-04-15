@@ -88,6 +88,11 @@ export const Signin = () => {
                 Not a member? <Link to={signup}>Sign up</Link>{" "}
               </p>
             </div>
+            <button>
+              <Link to={"http://localhost:4000/auth/facebook/callback"}>
+                facebook
+              </Link>
+            </button>
           </form>
         </div>
       </div>

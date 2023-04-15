@@ -25,6 +25,10 @@ export const Profile = () => {
     e.preventDefault();
     try {
       await updateEmailRequest(email, pwd, useAuth.user.token || "");
+      toast("verification code sent to your new email", {
+        toastId: 404,
+        type: "success",
+      });
       useAuth.signout();
       navigate(signin);
     } catch (error) {
@@ -35,10 +39,6 @@ export const Profile = () => {
     e.preventDefault();
     try {
       await updatePasswordRequest(pwd, newPwd, useAuth.user.token || "");
-      toast("verification code sent to your new email", {
-        toastId: 404,
-        type: "success",
-      });
       useAuth.signout();
       navigate(signin);
     } catch (error) {

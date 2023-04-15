@@ -1,11 +1,8 @@
 import { Link, createSearchParams, useNavigate } from "react-router-dom";
-import { docList, profile, secondary, signin, signup } from "../types/routes";
+import { docList, profile, signin, signup } from "../types/routes";
 import { useContext, useState, useEffect, MouseEvent } from "react";
 import { AuthContext } from "../context/userContext";
-import axios from "axios";
-import { API } from "../context/api";
-import { userEndpoints } from "@english/shared";
-import { profileRequest, signoutRequest } from "../axios/user";
+import { profileRequest } from "../axios/user";
 import { toast } from "react-toastify";
 
 export const NavBar = () => {

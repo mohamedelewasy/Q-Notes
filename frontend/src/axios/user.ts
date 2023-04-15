@@ -21,6 +21,25 @@ export const signinRequest = (
     });
 };
 
+export const signinFacebookRequest = (
+  email: string,
+  password: string
+): Promise<{ token: string }> => {
+  return axios
+    .request({
+      url: API + userEndpoints.signin.url,
+      method: userEndpoints.signin.method,
+      data: { email, password },
+    })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err: AxiosError) => {
+      const errors = err.response?.data as { error: [string] };
+      throw new Error(errors.error.join("\n"));
+    });
+};
+
 export const signupRequest = (
   email: string,
   password: string

@@ -3,6 +3,7 @@ import { NavBar } from "./components/navbar";
 import {
   docDetail,
   docList,
+  facebookAuth,
   profile,
   signin,
   signup,
@@ -17,6 +18,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Protect } from "./components/Protect";
 import { DocDetail } from "./pages/docDetail";
 import { Verify } from "./pages/verify";
+import { FacebookAuth } from "./components/oauth/facebook";
 
 const client = new QueryClient();
 function App() {
@@ -39,6 +41,7 @@ function App() {
               }
             />
             <Route path={verify} element={<Verify />} />
+            <Route path={facebookAuth} element={<FacebookAuth />} />
           </Routes>
         </AuthContextProvider>
       </QueryClientProvider>

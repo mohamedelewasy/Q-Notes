@@ -1,3 +1,5 @@
+import { imgURL } from "../../types/routes";
+
 interface Iprop {
   doc: {
     id: string;
@@ -42,7 +44,10 @@ export const DocCardDetail = (prop: Iprop) => {
             </ul>
           </div>
           <div className="col-md-7 mt-4">
-            <img className="detail-img" src="https://picsum.photos/1000/1000" />
+            <img
+              className="detail-img"
+              src={imgURL.replace(":imageId", prop.doc.thumbnail)}
+            />
           </div>
         </div>
       </div>

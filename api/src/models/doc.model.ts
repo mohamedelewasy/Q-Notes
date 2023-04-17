@@ -32,11 +32,6 @@ DocModel.init(
     thumbnail: {
       type: DataTypes.STRING,
       unique: true,
-      get() {
-        return this.getDataValue('thumbnail')
-          ? path.join(process.env.STORAGE || '', 'thumbnail', this.getDataValue('thumbnail'))
-          : null;
-      },
     },
     description: { type: DataTypes.STRING, allowNull: false },
     educationLevel: {

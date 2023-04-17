@@ -6,6 +6,7 @@ import sequelize from '../config/db';
 class UserModel extends Model implements User {
   id!: string;
   email!: string;
+  facebookId!: string;
   password!: string;
   isActive!: boolean;
   isAdmin!: boolean;
@@ -20,8 +21,11 @@ UserModel.init(
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false,
       validate: { isEmail: { msg: 'invalid email format' } },
+    },
+    facebookId: {
+      type: DataTypes.STRING,
+      unique: true,
     },
     password: { type: DataTypes.STRING, allowNull: true },
     isAdmin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: 'false' },

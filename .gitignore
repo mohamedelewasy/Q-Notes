@@ -3,6 +3,7 @@ node_modules
 dist
 api/src/uploads/thumbnail/*
 api/src/uploads/pdf/*
+TODO.txt
 # dependencies
 /node_modules
 /.pnp

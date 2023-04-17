@@ -6,6 +6,8 @@ const enum userRoutes {
   verify = "verify",
   updateEmail = "updateEmail",
   updatePassword = "updatePassword",
+  facebookOauth = "facebookOauth",
+  facebookOauthSuccess = "facebookOauthSuccess",
 }
 const enum docRoutes {
   createDoc = "createDoc",
@@ -26,6 +28,11 @@ export const userEndpoints: {
   [userRoutes.updatePassword]: {
     url: "/api/v1/auth/update/password",
     method: "put",
+  },
+  [userRoutes.facebookOauth]: { url: "/auth/facebook", method: "get" },
+  [userRoutes.facebookOauthSuccess]: {
+    url: "/auth/facebook/success",
+    method: "get",
   },
 };
 export const docEndpoints: {

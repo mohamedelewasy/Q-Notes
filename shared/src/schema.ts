@@ -1,6 +1,7 @@
 export interface User {
   id: string;
   email: string;
+  facebookId: string;
   password: string;
   isActive: boolean;
   isAdmin: boolean;

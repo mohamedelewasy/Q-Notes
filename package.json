@@ -2,7 +2,6 @@
   "scripts": {
     "api:install": "cd api && npm install",
     "api:dev": "cd api && npm run dev",
-    "api:start": "cd api && npm run start",
     "api:build": "cd api && npm run build",
     "frontend:install": "cd frontend && npm install",
     "frontend:dev": "cd frontend && npm run start",

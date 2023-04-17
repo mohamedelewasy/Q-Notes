@@ -8,7 +8,7 @@ import {
   updateDocRequest,
 } from "../../axios/doc";
 import { toast } from "react-toastify";
-import { docDetail, docList } from "../../types/routes";
+import { docList } from "../../types/routes";
 
 export const UpdateDoc = () => {
   const navigate = useNavigate();

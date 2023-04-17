@@ -1,8 +1,5 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 import { profileRequest } from "../axios/user";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { signin as signinRoute } from "../types/routes";
 
 interface authContextProviderProps {
   children: ReactNode;
@@ -21,20 +18,10 @@ export const AuthContext = createContext(
 
 export const AuthContextProvider = ({ children }: authContextProviderProps) => {
   const [user, setUser] = useState<User>({ token: null });
-  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      profileRequest(token)
-        .then(() => setUser({ token }))
-        .catch((err) => {
-          toast("please signin again", {
-            toastId: 2,
-            autoClose: false,
-            type: "error",
-          });
-          navigate(signinRoute);
-        });
+      profileRequest(token).then(() => setUser({ token }));
     }
   }, []);
   const signin = (token: string) => {

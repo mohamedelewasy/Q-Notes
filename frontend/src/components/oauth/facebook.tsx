@@ -12,7 +12,8 @@ export const FacebookAuth = () => {
 
   useEffect(() => {
     const token = Cookies.get("token");
-    if (token) {
+    // eslint-disable-next-line eqeqeq
+    if (token != undefined || token != null) {
       authContext.signin(token);
       navigate(docList);
     } else setError(true);

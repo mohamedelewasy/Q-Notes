@@ -1,8 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { AuthContext } from "../context/userContext";
-import { docList } from "../types/routes";
-import { toast } from "react-toastify";
 import { profileRequest } from "../axios/user";
 
 export const IsAdmin = ({ children }: any) => {

@@ -1,4 +1,3 @@
-import { Doc } from "@english/shared";
 import "../assets/css/float-btn.css";
 import { CreateDoc } from "./doc/createDoc";
 import { UpdateDoc } from "./doc/updateDoc";

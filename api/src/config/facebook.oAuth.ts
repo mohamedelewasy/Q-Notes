@@ -16,8 +16,10 @@ export const faceBookStrategy = new FacebookStrategy(
   function (accessToken, refreshToken, profile, cb) {
     const facebookId = profile.id;
     UserModel.findOne({ where: { facebookId } }).then(res => {
-      if (res) cb(null, { token: res.token });
-      else {
+      if (res) {
+        res.update({ token: generateToken(res.id) });
+        res.save().then(() => cb(null, { token: res.token }));
+      } else {
         const id = uuid();
         UserModel.create({
           id,

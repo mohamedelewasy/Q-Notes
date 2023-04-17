@@ -12,12 +12,14 @@ export const NavBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (useAuth.user.token)
+    if (useAuth.user.token) {
+      console.log("a7a navbar", useAuth.user.token);
       profileRequest(useAuth.user.token)
         .then((res) => {
           setEmail(res.email);
         })
         .catch((err) => setError((err as Error).message));
+    }
   }, [useAuth]);
 
   const handleSignout = async (e: MouseEvent<HTMLButtonElement>) => {

@@ -13,4 +13,5 @@ router
   .get(D.getDoc)
   .patch(protect, isAdmin, upload, updateDocVal, D.updateDoc)
   .delete(protect, isAdmin, D.deleteDoc);
+router.route('/:id/download').get(protect, D.downloadDoc);
 export default router;

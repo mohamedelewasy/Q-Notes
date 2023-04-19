@@ -51,6 +51,7 @@ app.use(facebookOAuthRoutes);
 
 // public thumbnails
 app.use('/api/v1/images', express.static(path.join(__dirname, '/uploads/thumbnail')));
+app.use('/api/v1/pdf', express.static(path.join(__dirname, '/uploads/pdf')));
 
 // api routes
 app.use('/api/v1', apiRoutes);

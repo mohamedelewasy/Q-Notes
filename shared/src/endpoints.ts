@@ -15,6 +15,7 @@ const enum docRoutes {
   getDoc = "getDoc",
   updateDoc = "updateDoc",
   deleteDoc = "deleteDoc",
+  downloadDoc = "downloadDoc",
 }
 export const userEndpoints: {
   [key in userRoutes]: { url: string; method: string };
@@ -43,4 +44,5 @@ export const docEndpoints: {
   [docRoutes.getDoc]: { url: "/api/v1/doc/:id", method: "get" },
   [docRoutes.updateDoc]: { url: "/api/v1/doc/:id", method: "patch" },
   [docRoutes.deleteDoc]: { url: "/api/v1/doc/:id", method: "delete" },
+  [docRoutes.downloadDoc]: { url: "/api/v1/doc/:id/download", method: "get" },
 };

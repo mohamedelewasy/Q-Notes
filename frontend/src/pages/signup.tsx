@@ -4,6 +4,8 @@ import { useState, MouseEvent, useContext, useEffect } from "react";
 import { AuthContext } from "../context/userContext";
 import { signupRequest } from "../axios/user";
 import { toast } from "react-toastify";
+import { userEndpoints } from "@english/shared";
+import { API } from "../axios/client";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -91,6 +93,8 @@ export const Signup = () => {
                 Already a user? <Link to={signin}>Sign in</Link>
               </p>
             </div>
+
+            <Link to={API + userEndpoints.facebookOauth.url}>facebook </Link>
           </form>
         </div>
       </div>

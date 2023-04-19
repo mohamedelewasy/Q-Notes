@@ -18,7 +18,6 @@ export interface Doc {
   className: string;
   semester: string;
   title: string;
-  price: number;
   updatedAt: Date;
 }
 

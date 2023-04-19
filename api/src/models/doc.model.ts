@@ -1,12 +1,7 @@
 import { Doc } from '@english/shared';
-import dotenv from 'dotenv';
-import path from 'path';
 import { DataTypes, Model } from 'sequelize';
 
-import { __BASEdIRECTORY } from '../app';
 import sequelize from '../config/db';
-
-dotenv.config();
 
 class DocModel extends Model implements Doc {
   id!: string;
@@ -17,7 +12,6 @@ class DocModel extends Model implements Doc {
   className!: string;
   semester!: string;
   title!: string;
-  price!: number;
   updatedAt!: Date;
 }
 
@@ -48,7 +42,6 @@ DocModel.init(
     },
     semester: { type: DataTypes.ENUM('one', 'two'), allowNull: false },
     title: { type: DataTypes.STRING, allowNull: false },
-    price: { type: DataTypes.NUMBER, allowNull: false },
   },
   { timestamps: true, sequelize, tableName: 'docs' }
 );

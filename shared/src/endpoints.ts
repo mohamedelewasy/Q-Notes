@@ -44,5 +44,5 @@ export const docEndpoints: {
   [docRoutes.getDoc]: { url: "/api/v1/doc/:id", method: "get" },
   [docRoutes.updateDoc]: { url: "/api/v1/doc/:id", method: "patch" },
   [docRoutes.deleteDoc]: { url: "/api/v1/doc/:id", method: "delete" },
-  [docRoutes.downloadDoc]: { url: "/api/v1/doc/:id/download", method: "get" },
+  [docRoutes.downloadDoc]: { url: "/api/v1/pdf/:id/download", method: "get" },
 };

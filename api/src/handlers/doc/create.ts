@@ -7,8 +7,7 @@ import DocModel from '../../models/doc.model';
 // route:   POST /doc/
 // access:  admin
 export const createDoc = asyncHandler(async (req, res, next) => {
-  const { pdf, thumbnail, description, educationLevel, className, semester, title, price } =
-    req.body;
+  const { pdf, thumbnail, description, educationLevel, className, semester, title } = req.body;
   if (thumbnail == '' || thumbnail == 'undefined' || pdf == '' || pdf == 'undefined')
     return next(new ApiError('thumbnail and pdf are required', 400));
   const id = uuid();
@@ -21,7 +20,6 @@ export const createDoc = asyncHandler(async (req, res, next) => {
     className,
     semester,
     title,
-    price,
   });
   res.status(200).json({ id: document.id });
 });

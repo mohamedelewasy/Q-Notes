@@ -1,6 +1,5 @@
 import { Router } from 'express';
 
-import ApiError from '../errors/ApiError';
 import * as U from '../handlers/user';
 import { protect } from '../middlewares/protect';
 

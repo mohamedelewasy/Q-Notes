@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { uuid } from 'uuidv4';
 
 import DocModel from '../src/models/doc.model';
@@ -17,7 +18,6 @@ import DocModel from '../src/models/doc.model';
       className: Math.floor(1 + Math.random() * 6),
       semester: ['one', 'two'][Math.floor(Math.random() * 2)],
       title: `title of ${educationLevel} school num-${i}`,
-      price: 1 + Math.random() * 100,
     });
     console.log(`${Math.round((i * 100) / 50)}%`);
   }

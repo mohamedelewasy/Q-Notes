@@ -4,6 +4,8 @@ import { useState, useContext, useEffect, MouseEvent } from "react";
 import { AuthContext } from "../context/userContext";
 import { signinRequest } from "../axios/user";
 import { toast } from "react-toastify";
+import { userEndpoints } from "@english/shared";
+import { API } from "../axios/client";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
@@ -88,11 +90,7 @@ export const Signin = () => {
                 Not a member? <Link to={signup}>Sign up</Link>{" "}
               </p>
             </div>
-            <button>
-              <Link to={"http://localhost:4000/auth/facebook/callback"}>
-                facebook
-              </Link>
-            </button>
+            <Link to={API + userEndpoints.facebookOauth.url}>facebook </Link>
           </form>
         </div>
       </div>

@@ -13,7 +13,6 @@ export const getDoc = asyncHandler(async (req, res, next) => {
       'className',
       'description',
       'educationLevel',
-      'price',
       'semester',
       'thumbnail',
       'title',

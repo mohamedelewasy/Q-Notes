@@ -1,9 +1,9 @@
 import { compareSync, hashSync } from 'bcrypt';
-import dotenv from 'dotenv';
 
-dotenv.config();
+import { ENV } from '../config/env';
+
 export const hashPassword = (password: string) => {
-  const { PAPER, SALT_ROUND } = process.env;
+  const { PAPER, SALT_ROUND } = ENV.BCRYPT;
   if (!PAPER || !SALT_ROUND) {
     // eslint-disable-next-line no-console
     console.log('paper or salt is missing');
@@ -13,6 +13,6 @@ export const hashPassword = (password: string) => {
 };
 
 export const comparePassword = (data: string, hashed: string) => {
-  const { PAPER } = process.env;
+  const { PAPER } = ENV.BCRYPT;
   return compareSync(data + PAPER, hashed);
 };

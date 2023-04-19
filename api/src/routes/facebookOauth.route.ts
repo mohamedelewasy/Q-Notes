@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import passport from 'passport';
 
+import { ENV } from '../config/env';
+
 const router = Router();
 router.get(
   '/auth/facebook',
@@ -9,11 +11,11 @@ router.get(
 router.get(
   '/auth/facebook/callback',
   passport.authenticate('facebook', {
-    failureRedirect: `${process.env.DOMAIN_URL}/signin`,
+    failureRedirect: `${ENV.DOMAIN_URL}/signin`,
   }),
   function (req, res) {
     res.cookie('token', (req.user as { token: string }).token);
-    res.redirect(`${process.env.DOMAIN_URL}/signin/facebook`);
+    res.redirect(`${ENV.DOMAIN_URL}/signin/facebook`);
   }
 );
 

@@ -3,13 +3,14 @@ import { uuid } from 'uuidv4';
 
 import UserModel from '../models/user.model';
 import { generateToken } from '../utils/token.util';
+import { ENV } from './env';
 
 const FacebookStrategy = Strategy.Strategy;
 export const faceBookStrategy = new FacebookStrategy(
   {
-    clientID: process.env.FACEBOOK_APP_ID || '',
-    clientSecret: process.env.FACEBOOK_APP_SECRET || '',
-    callbackURL: `${process.env.API_URL}/auth/facebook/callback`,
+    clientID: ENV.OAUTH.FACEBOOK.ID,
+    clientSecret: ENV.OAUTH.FACEBOOK.ID,
+    callbackURL: `${ENV.API_URL}/auth/facebook/callback`,
     profileFields: ['id', 'email', 'name'],
     enableProof: true,
   },

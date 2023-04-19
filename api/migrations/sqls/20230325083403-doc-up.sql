@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS docs (
   "className" NUMERIC NOT NULL,
   semester VARCHAR(32) NOT NULL,
   title VARCHAR(64) NOT NULL,
-  price NUMERIC (5,2) NOT NULL,
   "createdAt" Date NOT NULL,
   "updatedAt" Date NOT NULL
 );

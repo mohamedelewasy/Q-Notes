@@ -1,10 +1,10 @@
 import { JWT } from '@english/shared';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-dotenv.config();
+import { ENV } from '../config/env';
+
 export const generateToken = (userId: string) => {
-  const JWT_SECRET = process.env.JWT_SECRET;
+  const JWT_SECRET = ENV.JWT.SECRET;
   if (!JWT_SECRET) {
     // eslint-disable-next-line no-console
     console.log('jwt secret is missing');
@@ -14,20 +14,16 @@ export const generateToken = (userId: string) => {
 };
 
 export const verifyToken = (token: string) => {
-  const JWT_SECRET = process.env.JWT_SECRET;
+  const JWT_SECRET = ENV.JWT.SECRET;
   if (!JWT_SECRET) {
     // eslint-disable-next-line no-console
     console.log('jwt secret is missing');
     process.exit(1);
   }
   try {
-    console.error('\n\n\n', token);
     const obj = jwt.verify(token, JWT_SECRET) as JWT;
     return obj.userId;
   } catch (error) {
-    console.log('\n\n\n');
-    console.log(error);
-    console.log('\n\n\n');
     throw new Error('bad token');
   }
 };

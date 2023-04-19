@@ -1,14 +1,13 @@
-import dotenv from 'dotenv';
 import { createTransport } from 'nodemailer';
 
-dotenv.config();
+import { ENV } from './env';
 
 export const mail = createTransport({
-  port: +(process.env.MAIL_PORT || 0),
-  host: process.env.MAIL_HOST,
+  port: +(ENV.EMAIL.PORT || 0),
+  host: ENV.EMAIL.HOST,
   auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASSWORD,
+    user: ENV.EMAIL.USER,
+    pass: ENV.EMAIL.PASSWORD,
   },
   secure: true,
 });
